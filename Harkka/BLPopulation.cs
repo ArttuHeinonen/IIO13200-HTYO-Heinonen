@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace Harkka
 {
+    /// <summary>
+    /// Business logic for population management. Mostly just Adding and substraction methods
+    /// </summary>
     public class BLPopulation
     {
 
@@ -66,6 +69,41 @@ namespace Harkka
             if(pop.miners > 0)
             {
                 pop.miners--;
+                pop.thinkers++;
+            }
+        }
+
+        public void AddPriest()
+        {
+            if(pop.thinkers > 0)
+            {
+                pop.thinkers--;
+                pop.priests++;
+            }
+        }
+
+        public void SubPriest()
+        {
+            if(pop.priests > 0)
+            {
+                pop.priests--;
+                pop.thinkers++;
+            }
+        }
+        public void AddMerchant()
+        {
+            if (pop.thinkers > 0)
+            {
+                pop.thinkers--;
+                pop.merchants++;
+            }
+        }
+
+        public void SubMerchant()
+        {
+            if (pop.merchants > 0)
+            {
+                pop.merchants--;
                 pop.thinkers++;
             }
         }

@@ -20,7 +20,7 @@ namespace Harkka
             CreateBuilding("Hut", hutReq);
             CreateBuilding("Trap", trapReq);
             CreateBuilding("Shrine", shrineReq);
-            CreateBuilding("Mine", shrineReq);
+            CreateBuilding("Mine", mineReq);
         }
 
         private void CreateBuilding(string name, List<ReqResource> req)
@@ -70,7 +70,7 @@ namespace Harkka
             {
                 resources.GetResource(req.resName).value -= req.value;
             }
-            IncrementBuildingPrice("Hut");
+            IncrementBuildingPrice(name);
             return resources;
         }
 

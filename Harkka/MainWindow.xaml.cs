@@ -26,7 +26,12 @@ namespace Harkka
         BLResource res = new BLResource();
         BLBuilding building = new BLBuilding();
         BLPopulation pop;
+        Bonus bonus = new Bonus();
+        BLScience science = new BLScience();
 
+        /// <summary>
+        /// Start timer to update resource values every second
+        /// </summary>
         public MainWindow()
         {
             InitializeComponent();
@@ -36,10 +41,12 @@ namespace Harkka
             timer.Interval = new TimeSpan(0, 0, 0, 0, 1000);
             timer.Start();
         }
-
+        /// <summary>
+        /// Is called every second.
+        /// </summary>
         private void timer_Tick(object sender, EventArgs e)
         {
-            res.IncrementAllResources(pop);
+            res.IncrementAllResources(pop, bonus);
             updateDataGrid();
         }
 
@@ -54,32 +61,75 @@ namespace Harkka
             res.AddResource("Food", res.GetResource("Population").value * 1);
             updateDataGrid();
         }
-
+        /// <summary>
+        /// Refresses Data grid to user interface.
+        /// </summary>
         private void updateDataGrid()
         {
             dataGrid.ItemsSource = null;
             dataGrid.ItemsSource = res.res;
         }
-
+        /// <summary>
+        /// Refresses Button texts to user interface
+        /// </summary>
         private void updateButtons()
         {
             buttonHut.Content = "Hut (" + building.GetBuilding("Hut").amount + ")";
             buttonTrap.Content = "Trap (" + building.GetBuilding("Trap").amount + ")";
+            buttonMine.Content = "Mine (" + building.GetBuilding("Mine").amount + ")";
+            buttonShrine.Content = "Shrine (" + building.GetBuilding("Shrine").amount + ")";
         }
-
+        /// <summary>
+        /// Refresses population tab labels in case of change of population division.
+        /// </summary>
         private void updatePopulationLabels()
         {
             labelThinker.Content = "Thinkers (" + pop.pop.thinkers + ")";
             labelWoodcutter.Content = "Woodcutters (" + pop.pop.woodcutters + ")";
             labelForager.Content = "Foragers (" + pop.pop.foragers + ")";
             labelMiner.Content = "Miners (" + pop.pop.miners + ")";
+            labelPriest.Content = "Priest (" + pop.pop.priests + ")";
+            labelMerchant.Content = "Merchants (" + pop.pop.merchants + ")";
         }
-
+        /// <summary>
+        /// Refresses tooltips to current element.
+        /// </summary>
+        /// <param name="buildingName">Title</param>
+        /// <param name="description">Description</param>
+        /// <param name="requirements">Building requirements. Includes nextlines</param>
         private void updateToolTip(String buildingName, String description, String requirements)
         {
             labelToolTip.Content = buildingName + "\n\n" + description + "\n" + requirements;
         }
+        /// <summary>
+        /// Updates Hut Tooltip
+        /// </summary>
+        private void updateHutToolTip()
+        {
+            updateToolTip("Hut", "Comfty wooden hut for two.", building.GetRequirementsAsString("Hut"));
+        }
+        /// <summary>
+        /// Updates Trap Tooltip
+        /// </summary>
+        private void updateTrapToolTip()
+        {
+            updateToolTip("Trap", "Tool for catching food.", building.GetRequirementsAsString("Trap"));
+        }
 
+        private void updateMineToolTip()
+        {
+            updateToolTip("Mine", "Mine where miner mine.", building.GetRequirementsAsString("Mine"));
+        }
+
+        private void updateShrineToolTip()
+        {
+            updateToolTip("Shrine", "Place of worship and prayer.", building.GetRequirementsAsString("Shrine"));
+        }
+
+        private void updateScienceMasonryToolTip()
+        {
+            
+        }
 
         private void buttonWoodcutterPlus_Click(object sender, RoutedEventArgs e)
         {
@@ -117,6 +167,31 @@ namespace Harkka
             updatePopulationLabels();
         }
 
+        private void buttonPriestPlus_Click(object sender, RoutedEventArgs e)
+        {
+            pop.AddPriest();
+            updatePopulationLabels();
+        }
+
+        private void buttonPriestMinus_Click(object sender, RoutedEventArgs e)
+        {
+            pop.SubPriest();
+            updatePopulationLabels();
+        }
+        private void buttonMerchantPlus_Click(object sender, RoutedEventArgs e)
+        {
+            pop.AddMerchant();
+            updatePopulationLabels();
+        }
+
+        private void buttonMerchantMinus_Click(object sender, RoutedEventArgs e)
+        {
+            pop.SubMerchant();
+            updatePopulationLabels();
+        }
+        /// <summary>
+        /// Buys hut building if resources are efficent
+        /// </summary>
         private void buttonHut_Click(object sender, RoutedEventArgs e)
         {
             if (building.IsRequirementsMetForBuilding("Hut", res))
@@ -129,6 +204,7 @@ namespace Harkka
                 updateDataGrid();
                 updateButtons();
                 updatePopulationLabels();
+                updateHutToolTip();
             }
         }
 
@@ -137,6 +213,7 @@ namespace Harkka
             if (building.IsRequirementsMetForBuilding("Trap", res))
             {
                 building.BuyBuilding("Trap", res);
+                bonus.foodBonus = (1 + (building.GetBuilding("Trap").amount * 0.35f));
                 updateDataGrid();
                 updateButtons();
             }
@@ -147,6 +224,7 @@ namespace Harkka
             if(building.IsRequirementsMetForBuilding("Shrine", res))
             {
                 building.BuyBuilding("Shrine", res);
+                bonus.religionBonus = (1 + (building.GetBuilding("Shrine").amount * 0.12f));
                 updateDataGrid();
                 updateButtons();
             }
@@ -157,6 +235,7 @@ namespace Harkka
             if(building.IsRequirementsMetForBuilding("Mine", res))
             {
                 building.BuyBuilding("Mine", res);
+                bonus.mineBonus = (1 + (building.GetBuilding("Mine").amount * 0.20f)); 
                 updateDataGrid();
                 updateButtons();
             }
@@ -164,24 +243,26 @@ namespace Harkka
 
         private void buttonHut_MouseEnter(object sender, MouseEventArgs e)
         {
-            updateToolTip("Hut", "Comfty wooden hut for two.", building.GetRequirementsAsString("Hut"));
+            updateHutToolTip();
         }
         
         private void buttonTrap_MouseEnter(object sender, MouseEventArgs e)
         {
-            updateToolTip("Trap", "Tool for catching food.", building.GetRequirementsAsString("Trap"));
+            updateTrapToolTip();
         }
 
         private void buttonShrine_MouseEnter(object sender, MouseEventArgs e)
         {
-            updateToolTip("Shrine", "Place of worship and prayer.", building.GetRequirementsAsString("Shrine"));
+            updateShrineToolTip();
         }
 
         private void buttonMine_MouseEnter(object sender, MouseEventArgs e)
         {
-            updateToolTip("Mine", "Mine where miner mine.", building.GetRequirementsAsString("Mine"));
+            updateMineToolTip();
         }
-
+        /// <summary>
+        /// Saves game file to xml.
+        /// </summary>
         private void buttonSave_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -197,8 +278,20 @@ namespace Harkka
             }
             Console.ReadLine();
         }
-
+        /// <summary>
+        /// Wipes game save data file
+        /// </summary>
         private void buttonReset_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void buttonScienceMasonry_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void buttonScienceAgriculture_Click(object sender, RoutedEventArgs e)
         {
 
         }

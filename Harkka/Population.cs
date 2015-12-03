@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace Harkka
 {
+    /// <summary>
+    /// Model for population management
+    /// </summary>
     public class Population
     {
         public int maxPopulation { get; set; }
@@ -14,7 +17,8 @@ namespace Harkka
         public int foragers { get; set; }
         public int miners { get; set; }
         public int guards { get; set; }
-
+        public int merchants { get; set; }
+        public int priests { get; set; }
         public Population(int maxPopulation)
         {
             this.maxPopulation = maxPopulation;

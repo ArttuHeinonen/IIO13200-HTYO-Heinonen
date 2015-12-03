@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 
 namespace Harkka
 {
+    /// <summary>
+    /// Resource business logic management class. Handles incrementations and additions.
+    /// </summary>
     public class BLResource
     {
         public List<Resource> res = new List<Resource>();
@@ -27,7 +30,7 @@ namespace Harkka
         {
             res.Add(new Resource(name, 0, maxValue, isAvailable));
         }
-        public void IncrementAllResources(BLPopulation pop)
+        public void IncrementAllResources(BLPopulation pop, Bonus bonus)
         {
             for (int i = 0; i < res.Count; i++)
             {
@@ -40,7 +43,7 @@ namespace Harkka
                             res[i].value += res[i].increment;
                             break;
                         case "Food":
-                            res[i].increment = pop.pop.foragers * 1.5f;
+                            res[i].increment = pop.pop.foragers * bonus.foodBonus;
                             res[i].value += res[i].increment;
                             break;
                         case "Science":
@@ -48,7 +51,15 @@ namespace Harkka
                             res[i].value += res[i].increment;
                             break;
                         case "Stone":
-                            res[i].increment = pop.pop.miners;
+                            res[i].increment = pop.pop.miners * bonus.mineBonus;
+                            res[i].value += res[i].increment;
+                            break;
+                        case "Gold":
+                            res[i].increment = pop.pop.merchants * bonus.mineBonus;
+                            res[i].value += res[i].increment;
+                            break;
+                        case "Faith":
+                            res[i].increment = pop.pop.priests * 0.1f;
                             res[i].value += res[i].increment;
                             break;
                         default:

@@ -59,10 +59,12 @@
     <Compile Include="BLBuilding.cs" />
     <Compile Include="BLPopulation.cs" />
     <Compile Include="BLResource.cs" />
+    <Compile Include="BLScience.cs" />
     <Compile Include="Bonus.cs" />
     <Compile Include="Building.cs" />
     <Compile Include="Population.cs" />
     <Compile Include="Resource.cs" />
+    <Compile Include="Science.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
