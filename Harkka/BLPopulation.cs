@@ -19,6 +19,41 @@ namespace Harkka
             this.pop = new Population(maxPopulation);
         }
 
+        public void KillVillager()
+        {
+            pop.totalPopulation--;
+            if(pop.thinkers > 0)
+            {
+                pop.thinkers--;
+            }
+            else if(pop.woodcutters > 0)
+            {
+                pop.woodcutters--;
+            }
+            else if (pop.foragers > 0)
+            {
+                pop.foragers--;
+            }
+            else if(pop.miners > 0)
+            {
+                pop.miners--;
+            }
+            else if(pop.merchants > 0)
+            {
+                pop.merchants--;
+            }
+            else if(pop.guards > 0)
+            {
+                pop.guards--;
+            }
+        }
+
+        public void ReviveVillager()
+        {
+            pop.totalPopulation++;
+            pop.thinkers++;
+        }
+
         public void AddWoodcutter()
         {
             if(pop.thinkers > 0)
@@ -106,6 +141,11 @@ namespace Harkka
                 pop.merchants--;
                 pop.thinkers++;
             }
+        }
+
+        public void ResetValues()
+        {
+            pop.Reset();
         }
     }
 }

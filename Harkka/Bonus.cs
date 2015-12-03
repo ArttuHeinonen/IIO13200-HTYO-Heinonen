@@ -14,14 +14,15 @@ namespace Harkka
         public float scienceBonus { get; set; }
         public float religionBonus { get; set; }
         public float mineBonus { get; set; }
-
         public float foodBonus { get; set; }
+        public float limitBonus { get; set; }
         public Bonus()
         {
             scienceBonus = 1;
             religionBonus = 1;
             mineBonus = 1;
             foodBonus = 1;
+            limitBonus = 1;
         }
     }
 }

@@ -8,7 +8,7 @@
         Title="Tribal game" Height="504.808" Width="880.577">
     <Grid>
         <GridSplitter x:Name="gridSplitter" HorizontalAlignment="Left" Height="470" Margin="397,0,0,0" VerticalAlignment="Top" Width="9"/>
-        <DataGrid x:Name="dataGrid" HorizontalAlignment="Left" VerticalAlignment="Top" IsEnabled="False" Height="290" Width="397" FontSize="13.333" HeadersVisibility="None" />
+        <DataGrid x:Name="dataGrid" HorizontalAlignment="Left" VerticalAlignment="Top" IsEnabled="False" Height="290" Width="397" FontSize="16" HeadersVisibility="None" />
         <TabControl x:Name="tabControl" HorizontalAlignment="Left" Height="470" Margin="406,0,0,0" VerticalAlignment="Top" Width="467" FontSize="13.333">
             <TabItem Header="Village">
                 <Grid Background="#FFE5E5E5">
@@ -18,6 +18,8 @@
                     <Button x:Name="buttonTrap" Content="Trap (0)" Margin="225,36,0,364" Click="buttonTrap_Click" MouseEnter="buttonTrap_MouseEnter" />
                     <Button x:Name="buttonShrine" Content="Shrine (0)" Margin="0,72,232,328" Click="buttonShrine_Click" MouseEnter="buttonShrine_MouseEnter"/>
                     <Button x:Name="buttonMine" Content="Mine (0)" Margin="225,72,0,328" Click="buttonMine_Click" MouseEnter="buttonMine_MouseEnter" />
+                    <Button x:Name="buttonStorage" Content="Storage (0)" Margin="0,108,232,292" Click="buttonStorage_Click" MouseEnter="buttonStorage_MouseEnter"/>
+                    <Button x:Name="buttonLibrary" Content="Library (0)" Margin="225,108,0,292" Click="buttonLibrary_Click" MouseEnter="buttonLibrary_MouseEnter" />
                 </Grid>
             </TabItem>
             <TabItem Header="Population">
@@ -42,8 +44,8 @@
             </TabItem>
             <TabItem Header="Science">
                 <Grid Background="#FFE5E5E5">
-                    <Button x:Name="buttonScienceMasonry" Content="Masonry" Margin="116,0,116,400" Click="buttonScienceMasonry_Click"/>
-                    <Button x:Name="buttonScienceAgriculture" Content="Agriculture" Margin="116,36,116,364" Click="buttonScienceAgriculture_Click"/>
+                    <Button x:Name="buttonScienceMasonry" Content="Masonry" Margin="116,0,116,400" Click="buttonScienceMasonry_Click" MouseEnter="buttonScienceMasonry_MouseEnter"/>
+                    <Button x:Name="buttonScienceAgriculture" Content="Agriculture" Margin="116,36,116,364" Click="buttonScienceAgriculture_Click" MouseEnter="buttonScienceAgriculture_MouseEnter"/>
                 </Grid>
             </TabItem>
             <TabItem Header="Options">

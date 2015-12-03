@@ -11,7 +11,7 @@ namespace Harkka
     /// </summary>
     public class Population
     {
-        public int maxPopulation { get; set; }
+        public int totalPopulation { get; set; }
         public int thinkers { get; set; }
         public int woodcutters { get; set; }
         public int foragers { get; set; }
@@ -19,10 +19,22 @@ namespace Harkka
         public int guards { get; set; }
         public int merchants { get; set; }
         public int priests { get; set; }
-        public Population(int maxPopulation)
+        public Population(int totalPopulation)
         {
-            this.maxPopulation = maxPopulation;
-            this.thinkers = maxPopulation;
+            this.totalPopulation = totalPopulation;
+            this.thinkers = totalPopulation;
+        }
+
+        public void Reset()
+        {
+            totalPopulation = 0;
+            thinkers = 0;
+            woodcutters = 0;
+            foragers = 0;
+            miners = 0;
+            guards = 0;
+            merchants = 0;
+            priests = 0;
         }
     }
 }

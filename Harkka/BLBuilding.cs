@@ -13,6 +13,8 @@ namespace Harkka
         List<ReqResource> trapReq = new List<ReqResource>();
         List<ReqResource> shrineReq = new List<ReqResource>();
         List<ReqResource> mineReq = new List<ReqResource>();
+        List<ReqResource> storageReq = new List<ReqResource>();
+        List<ReqResource> libraryReq = new List<ReqResource>();
 
         public BLBuilding()
         {
@@ -21,6 +23,8 @@ namespace Harkka
             CreateBuilding("Trap", trapReq);
             CreateBuilding("Shrine", shrineReq);
             CreateBuilding("Mine", mineReq);
+            CreateBuilding("Storage", storageReq);
+            CreateBuilding("Library", libraryReq);
         }
 
         private void CreateBuilding(string name, List<ReqResource> req)
@@ -36,6 +40,9 @@ namespace Harkka
             shrineReq.Add(new ReqResource("Stone", 5, 1.1f));
             shrineReq.Add(new ReqResource("Gold", 50, 1.6f));
             mineReq.Add(new ReqResource("Wood", 50, 1.4f));
+            storageReq.Add(new ReqResource("Wood", 25, 1.3f));
+            storageReq.Add(new ReqResource("Stone", 5, 1.25f));
+            libraryReq.Add(new ReqResource("Wood", 100, 1.4f));
         }
 
         public Building GetBuilding(String name)
